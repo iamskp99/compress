@@ -261,6 +261,7 @@ def make_hash_map(file_address):
 
 
 def file_read(file_address):
+    # This function returns actual huffman encoded string without any meta-data.
     file = open(file_address, "rb")
     flag = 0
     num = 1  # Garbage value
@@ -311,6 +312,7 @@ def file_read(file_address):
 
 
 def get_text_array(code,hash_map):
+    # This converts huffman code into character
     ans = []
     s = ""
     for i in code:
