@@ -174,7 +174,7 @@ def encode():
     # Zeroes before the code is the amount of zeroes added before actual huffman code
     # This is all stored in binary format
 
-    print("Enter the address of your encode.txt file : ")
+    print("Enter the path of your encode.txt file : ")
     file_source = input()
     print("")
     file = open(file_source, 'r')
@@ -195,7 +195,7 @@ def encode():
         hash_map[val] = ele
         encode_map[ele] = val
 
-    print("Enter the address of your output.bin file : ")
+    print("Enter the path of your output.bin file : ")
     output_file = input()
     print("")
     output = open(output_file, 'wb')
@@ -325,11 +325,11 @@ def get_text_array(code,hash_map):
 
 
 def decode():
-    print("Enter the address of your decode.txt file : ")
+    print("Enter the path of your decode.txt file : ")
     file_source = input()
     print("")
     decode_file = open(file_source, 'a')
-    print("Enter the address of your output.bin file : ")
+    print("Enter the path of your output.bin file : ")
     u = input()
     print("")
     hash_map = make_hash_map(u)
