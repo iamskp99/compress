@@ -72,3 +72,10 @@ convert it into the actual decoded text.
 It now writes it to the decoded.txt.
 
 ```
+# Sources
+
+What is Huffman coding ? : [https://www.youtube.com/watch?v=co4_ahEDCho](https://www.youtube.com/watch?v=co4_ahEDCho)
+
+A good video on file compression : [https://www.youtube.com/watch?v=IuFKDrdmgIQ&list=LL&index=8&t=254s](https://www.youtube.com/watch?v=IuFKDrdmgIQ&list=LL&index=8&t=254s) 
+
+You can also read this pdf : [https://www.researchgate.net/publication/309616501_Role_of_Run_Length_Encoding_on_Increasing_Huffman_Effect_in_Text_Compression](https://www.researchgate.net/publication/309616501_Role_of_Run_Length_Encoding_on_Increasing_Huffman_Effect_in_Text_Compression)
