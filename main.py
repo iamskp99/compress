@@ -13,6 +13,10 @@ def run_length_encode(input_data):
         else:
             if prev != "-1":
                 # Adding 152 to the ASCII values to deal with the integers.
+                # This means that frequency will be treated as normal int character and
+                # the integer will have different characters which have higher ASCII
+                # value.This will help us to deal with confusion with integer as a character and
+                # integer as frequency.
                 if (prev >= '0') and (prev <= '9'):
                     prev = chr(152+ord(prev))
 
@@ -78,6 +82,7 @@ def run_length_decode(input_data):
 
 
 def huffman_encode(heap):
+    # This will generate all the huffman codes of all the characters.
     while len(heap) > 1:
         low = heapq.heappop(heap)
         high = heapq.heappop(heap)
@@ -110,6 +115,9 @@ def frequency_calculator(input_data):
 
 
 def add_extra(data):
+    # This function adds extra zeroes at the end of encoded data
+    # to make it multiple of 8. Also,we add head which is the count
+    # of zeroes added at the end.
     needed = 8-(len(data)%8)
     head = ("0"*len(bin(needed)[2:]))+bin(needed)[2:]
     data = data+("0"*needed)
@@ -118,6 +126,7 @@ def add_extra(data):
 
 
 def to_huffman_encoded(encoded_data,encode_map):
+    # Huffman encoded string is generated.
     arr = []
     for i in encoded_data:
         arr.append(encode_map[i])
@@ -135,6 +144,7 @@ def get_bytearray(encodedtext):
 
 
 def encode_the_map(length,hash_map):
+    # This function encodes the hash map.
     val = bin(length)[2:]
     val = ((8-(len(val)%8))*"0")+val
     result = [val]
@@ -157,8 +167,16 @@ def encode_the_map(length,hash_map):
 
 
 def encode():
+    # The text files are encoded in this format :
+    # [zeroes added to the last][length of the table]
+    # Now, the data is stored in this format
+    # [zeroes before the code][Length of the bytes to read][Actual huffman code][Actual ASCII code]
+    # Zeroes before the code is the amount of zeroes added before actual huffman code
+    # This is all stored in binary format
+
     print("Enter the address of your encode.txt file : ")
     file_source = input()
+    print("")
     file = open(file_source, 'r')
     data_for_run_length_encode = []
     for line in file:
@@ -179,6 +197,7 @@ def encode():
 
     print("Enter the address of your output.bin file : ")
     output_file = input()
+    print("")
     output = open(output_file, 'wb')
     huffman_encoded = to_huffman_encoded(encoded_data,encode_map)
     partially_encoded = add_extra(huffman_encoded)
@@ -190,6 +209,7 @@ def encode():
 
 
 def make_hash_map(file_address):
+    # This function will decode hash map
     file = open(file_address, "rb")
     flag = 0
     num = 1  # Garbage value
@@ -305,9 +325,11 @@ def get_text_array(code,hash_map):
 def decode():
     print("Enter the address of your decode.txt file : ")
     file_source = input()
+    print("")
     decode_file = open(file_source, 'a')
     print("Enter the address of your output.bin file : ")
     u = input()
+    print("")
     hash_map = make_hash_map(u)
     code = file_read(u)
     result = get_text_array(code,hash_map)
@@ -318,5 +340,11 @@ def decode():
     return
 
 
-encode()
-decode()
+print("Enter 0 if you want to compress a file or 1 if you want to de-compress it :")
+choice = int(input())
+print("")
+if choice == 0:
+    encode()
+
+if choice == 1:
+    decode()
