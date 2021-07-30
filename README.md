@@ -7,7 +7,7 @@ A file compression tool based on run-length encoding and Huffman encoding.
 Run the main.py file.
 
 The program will prompt you to give an input.
-Enter 0 if you want to de-compress or 0 if you want to compress.
+Enter 0 if you want to compress or 1 if you want to de-compress.
 
 If you want to compress :
 
