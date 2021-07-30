@@ -77,10 +77,7 @@ def run_length_decode(input_data):
     return decoded
 
 
-
 def huffman_encode(heap):
-    # Make Tree
-
     while len(heap) > 1:
         low = heapq.heappop(heap)
         high = heapq.heappop(heap)
@@ -105,7 +102,6 @@ def frequency_calculator(input_data):
         else:
             d[i] = 1
 
-    # print(d)
     array = []
     for i in d:
         array.append([d[i],[i,'']])
@@ -115,7 +111,9 @@ def frequency_calculator(input_data):
 
 def add_extra(data):
     needed = 8-(len(data)%8)
+    head = ("0"*len(bin(needed)[2:]))+bin(needed)[2:]
     data = data+("0"*needed)
+    data = head+data
     return data
 
 
@@ -124,22 +122,16 @@ def to_huffman_encoded(encoded_data,encode_map):
     for i in encoded_data:
         arr.append(encode_map[i])
 
-    # print(arr)
     return "".join(arr)
 
 
 def get_bytearray(encodedtext):
     bt = bytearray()
-    # temp = []
     for i in range(0, len(encodedtext), 8):
         byte = encodedtext[i:i + 8]
-        # temp.append(int(byte,2))
         bt.append(int(byte, 2))
 
-    # print(sum(temp))
     return bt
-
-# Have to fix this
 
 
 def encode_the_map(length,hash_map):
@@ -169,7 +161,6 @@ def encode():
     file_source = input()
     file = open(file_source, 'r')
     data_for_run_length_encode = []
-
     for line in file:
         for character in line:
             data_for_run_length_encode.append(character)
@@ -177,9 +168,7 @@ def encode():
     encoded_data = run_length_encode(data_for_run_length_encode)
     heap = frequency_calculator(encoded_data)
     heapq.heapify(heap)
-    # print(heap)
     huffman_codes = huffman_encode(heap)
-    # print(heap)
     hash_map = {}
     encode_map = {}
     for x in huffman_codes:
@@ -188,7 +177,6 @@ def encode():
         hash_map[val] = ele
         encode_map[ele] = val
 
-    # print(hash_map)
     print("Enter the address of your output.bin file : ")
     output_file = input()
     output = open(output_file, 'wb')
@@ -196,8 +184,6 @@ def encode():
     partially_encoded = add_extra(huffman_encoded)
     map_to_be_added = encode_the_map(len(huffman_codes),hash_map)
     fully_encoded = map_to_be_added+partially_encoded
-    # print(hash_map)
-    # print(int(partially_encoded,2))
     b_array = get_bytearray(fully_encoded)
     output.write(b_array)
     return
@@ -285,6 +271,12 @@ def file_read(file_address):
             byte = file.read(1)
             i = i + 1
 
+    byte = file.read(1)
+    q = byte
+    int_val = int.from_bytes(q, "big")
+    v = ((8 - len(bin(int_val)[2:])) * "0") + bin(int_val)[2:]
+    head = int(v, 2)
+    byte = file.read(1)
     while byte:
         q = byte
         int_val = int.from_bytes(q, "big")
@@ -293,13 +285,13 @@ def file_read(file_address):
         ans.append(v)
 
     coded_text = "".join(ans)
+    coded_text = coded_text[0:len(coded_text)-head]
     file.close()
     return coded_text
 
 
 def get_text_array(code,hash_map):
     ans = []
-    # g = []
     s = ""
     for i in code:
         s = s + i
@@ -307,7 +299,6 @@ def get_text_array(code,hash_map):
             ans.append(hash_map[s])
             s = ""
 
-    # print(g)
     return ans
 
 
@@ -315,16 +306,11 @@ def decode():
     print("Enter the address of your decode.txt file : ")
     file_source = input()
     decode_file = open(file_source, 'a')
-
     print("Enter the address of your output.bin file : ")
     u = input()
     hash_map = make_hash_map(u)
-    # print(hash_map)
     code = file_read(u)
     result = get_text_array(code,hash_map)
-    # print("".join(result))
-    # print(hash_map)
-    # print(code)
     ans = run_length_decode(result)
     for i in ans:
         decode_file.write(i)
