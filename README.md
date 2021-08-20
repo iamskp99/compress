@@ -1,6 +1,8 @@
 # compress
 
 A file compression tool based on run-length encoding and Huffman encoding.
+You can see the given example. We have an input.txt file which is compressed
+into output.bin file and decoded back to decode.txt file.
 
 ## Usage
 ```
