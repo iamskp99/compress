@@ -32,6 +32,9 @@ def run_length_encode(input_data):
             prev = data
             count = 1
 
+    if (prev >= '0') and (prev <= '9'):
+        prev = chr(152 + ord(prev))
+
     if count == 1:
         encoded.append(prev)
 
@@ -109,7 +112,7 @@ def frequency_calculator(input_data):
 
     array = []
     for i in d:
-        array.append([d[i],[i,'']])
+        array.append([d[i],[i,'0']])
 
     return array
 
@@ -119,7 +122,7 @@ def add_extra(data):
     # to make it multiple of 8. Also,we add head which is the count
     # of zeroes added at the end.
     needed = 8-(len(data)%8)
-    head = ("0"*len(bin(needed)[2:]))+bin(needed)[2:]
+    head = ("0"*(8-len(bin(needed)[2:])))+bin(needed)[2:]
     data = data+("0"*needed)
     data = head+data
     return data
@@ -292,7 +295,7 @@ def file_read(file_address):
             byte = file.read(1)
             i = i + 1
 
-    byte = file.read(1)
+    # byte = file.read(1)
     q = byte
     int_val = int.from_bytes(q, "big")
     v = ((8 - len(bin(int_val)[2:])) * "0") + bin(int_val)[2:]

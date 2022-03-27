@@ -1,4 +1,4 @@
-tps://codeforces.com/contest/1040/problem/B
+https://codeforces.com/contest/1040/problem/B
 https://codeforces.com/problemset/problem/1070/D
 https://codeforces.com/contest/1337/problem/C
 https://codeforces.com/contest/1512/problem/G
@@ -881,4 +881,4 @@ https://codeforces.com/problemset/problem/1288/C
 https://codeforces.com/problemset/problem/1422/C
 https://codeforces.com/contest/1118/problem/D2
 https://codeforces.com/contest/1515/problem/E
-https://codeforces.com
+https://codeforces.com/contest/1293/problem/D
